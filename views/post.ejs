@@ -1,9 +1,10 @@
 <%- include('partials/header') -%>
 <div class="container">
   <div class="row justify-content-center mt-5">
-    <div class="col-6">
+    <div class="col-5">
       <h2><%= post.title %></h2>
       <img class="img-fluid" src="<%= post.image%>" />
+      <p class="lead m-2"><%= post.caption %></p>
       <div class="row justify-content-between">
         <form
           class="col-1"
@@ -11,7 +12,8 @@
           method="POST"
         >
           <button class="btn btn-primary fa fa-heart" type="submit"></button>
-        </form>
+      </form>
+            
         <h3 class="col-3">Likes: <%= post.likes %></h3>
         <%if(post.user == user.id){ %>
         <form
@@ -24,10 +26,25 @@
         <%}%>
       </div>
     </div>
-    <div class="col-3 mt-5">
-      <p><%= post.caption %></p>
+    <div class="col-4 mt-5">
+        <!-- form for comments -->
+        <div class="comments">
+          <h5 class="pt-3">Comments</h5>
+          <form class="" action="/comment/createComment/<%=post._id%>/" method="POST">
+            <input type="text" name="comment" placeholder="Leave your comment">
+            <button class="btn btn-primary" type="submit">Comment</button>
+          </form>
+        <!-- display comments -->
+          <ul>
+            <% for (let i=0; i< comment.length; i++) {%>
+              <li class="h6"><%= comments[i].comment%></li>
+            <%}%>
+          </ul>
+        </div>  
     </div>
-    <div class="col-6 mt-5">
+  </div>
+  <div class="row justify-content-center">
+    <div class="col mt-5 text-center">
       <a class="btn btn-primary" href="/profile">Return to Profile</a>
       <a class="btn btn-primary" href="/feed">Return to Feed</a>
     </div>
